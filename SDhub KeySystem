@@ -1,0 +1,96 @@
+local Player = game.Players.LocalPlayer
+local MarketplaceService = game:GetService("MarketplaceService")
+
+local Gui = Instance.new("ScreenGui")
+Gui.Parent = Player.PlayerGui
+Gui.IgnoreGuiInset = true
+Gui.Name = "SDhubKeySystem"
+Gui.ResetOnSpawn = false
+
+local Main = Instance.new("Frame")
+Main.Name = "Main"
+Main.Parent = Gui
+Main.BackgroundColor3 = Color3.new(0.588235, 0.588235, 0.588235)
+Main.Size = UDim2.new(0.2, 0, 0.6, 0)
+Main.Position = UDim2.new(0.4, 0, 0.2, 0)
+Main.Visible = true
+
+local Title = Instance.new("TextButton")
+Title.Name = "Title"
+Title.Parent = Main
+Title.Text = "SDhub Key-System"
+Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(0.9, 0, 0.1, 0)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.TextColor3 = Color3.new(0, 0, 0)
+Title.TextScaled = true
+Title.Font = Enum.Font.FredokaOne
+Title.TextXAlignment = Enum.TextXAlignment.Center
+Title.TextYAlignment = Enum.TextYAlignment.Center
+Title.Visible = true
+
+local Close = Instance.new("TextButton")
+Close.Name = "Close"
+Close.Parent = Main
+Close.Text = "X"
+Close.BackgroundColor3 = Color3.new(0.588235, 0.588235, 0.588235)
+Close.Size = UDim2.new(0.15, 0, 0.1, 0)
+Close.Position = UDim2.new(1, 0, 0, 0)
+Close.TextColor3 = Color3.new(1, 0, 0)
+Close.TextScaled = true
+Close.Font = Enum.Font.FredokaOne
+Close.TextXAlignment = Enum.TextXAlignment.Center
+Close.TextYAlignment = Enum.TextYAlignment.Center
+Close.Visible = true
+
+Close.Activated:Connect(function()
+Gui:Destroy()
+end)
+
+local KeyTextBox = Instance.new("TextBox")
+KeyTextBox.Name = "KeyTextBox"
+KeyTextBox.Parent = Main
+KeyTextBox.PlaceholderText = "SD-XXXX-XXXX-XXXX-XXXX"
+KeyTextBox.PlaceholderColor3 = Color3.new(0.588235, 0.588235, 0.588235)
+KeyTextBox.BackgroundColor3 = Color3.new(0, 0, 0)
+KeyTextBox.Size = UDim2.new(0.8, 0, 0.1, 0)
+KeyTextBox.Position = UDim2.new(0.1, 0, 0.8, 0)
+KeyTextBox.TextColor3 = Color3.new(1, 1, 1)
+KeyTextBox.TextScaled = true
+KeyTextBox.Font = Enum.Font.FredokaOne
+KeyTextBox.TextXAlignment = Enum.TextXAlignment.Left
+KeyTextBox.TextYAlignment = Enum.TextYAlignment.Center
+KeyTextBox.Visible = true
+
+local AccountPermKeyID = 1234567890
+
+local PermKeyButtonAccount = Instance.new("TextButton")
+PermKeyButtonAccount.Name = "PermKeyButtonAccount"
+PermKeyButtonAccount.Parent = Main
+PermKeyButtonAccount.BackgroundColor3 = Color3.new(1, 0, 1)
+PermKeyButtonAccount.Size = UDim2.new(0.8, 0, 0.1, 0)
+PermKeyButtonAccount.Position = UDim2.new(0.1, 0, 0.8, 0)
+PermKeyButtonAccount.TextColor3 = Color3.new(1, 1, 1)
+PermKeyButtonAccount.TextScaled = true
+PermKeyButtonAccount.Font = Enum.Font.FredokaOne
+PermKeyButtonAccount.TextXAlignment = Enum.TextXAlignment.Center
+PermKeyButtonAccount.TextYAlignment = Enum.TextYAlignment.Center
+PermKeyButtonAccount.Visible = true
+
+if MarketplaceService:UserOwnsGamePassAsync(Player.UserId, AccountPermKeyID) then
+    PermKeyButtonAccount.Text = "Use Account Perm Key"
+    PermKeyButtonAccount.BackgroundColor3 = Color3.new(0, 1, 0)
+else
+    PermKeyButtonAccount.Text = "Buy Account Perm Key (800 Robux)"
+end
+
+
+PermKeyButtonAccount.Activated:Connect(function()
+    if MarketplaceService:UserOwnsGamePassAsync(Player.UserId, AccountPermKeyID) then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Slime0077/Script/refs/heads/main/SDhub"))()
+    else
+        MarketplaceService:PromptPurchase(Player, AccountPermKeyID)
+    end
+end)
+
+
